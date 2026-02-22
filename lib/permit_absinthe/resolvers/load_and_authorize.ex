@@ -383,6 +383,7 @@ defmodule Permit.Absinthe.Resolvers.LoadAndAuthorize do
   defp resolve_default(subject, authorization_module, module, action, context, arity) do
     meta = %{
       params: context.params,
+      loader: context.loader,
       resolution: context.resolution,
       base_query: context.base_query,
       finalize_query: context.finalize_query || fn query, _ctx -> query end
