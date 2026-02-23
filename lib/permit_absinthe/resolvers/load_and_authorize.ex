@@ -363,9 +363,12 @@ defmodule Permit.Absinthe.Resolvers.LoadAndAuthorize do
   end
 
   defp authorize_and_load(subject, authorization_module, module, action, context, arity) do
-    loader = context.field_meta |> get_field(:loader) |> get_fn_from_ast(1, context.resolution)
-
-    dbg loader
+    loader = context.field_meta
+      |> dbg
+      |> get_field(:loader)
+      |> dbg
+      |> get_fn_from_ast(1, context.resolution)
+      |> dbg
 
     if loader do
       authorize_loaded_resource(
@@ -384,7 +387,7 @@ defmodule Permit.Absinthe.Resolvers.LoadAndAuthorize do
   defp resolve_default(subject, authorization_module, module, action, context, arity) do
     meta = %{
       params: context.params,
-      loader: context.loader,
+      # loader: context.loader,
       resolution: context.resolution,
       base_query: context.base_query,
       finalize_query: context.finalize_query || fn query, _ctx -> query end
