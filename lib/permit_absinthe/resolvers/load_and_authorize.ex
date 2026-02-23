@@ -251,6 +251,8 @@ defmodule Permit.Absinthe.Resolvers.LoadAndAuthorize do
         capture_ast
       end
 
+    dbg capture_ast
+
     with {function, _} <- Code.eval_quoted(capture_ast, []),
          true <- is_function(function, arity) do
       function
