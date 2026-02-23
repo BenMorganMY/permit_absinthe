@@ -184,7 +184,6 @@ defmodule Permit.Absinthe.Resolvers.LoadAndAuthorize do
   defp build_resolution_context(args, resolution, field_meta, type_meta, authorization_module) do
     %{
       params: args,
-      loader: resolution.context[:loader],
       resolution: resolution,
       field_meta: field_meta,
       type_meta: type_meta,
@@ -365,6 +364,8 @@ defmodule Permit.Absinthe.Resolvers.LoadAndAuthorize do
 
   defp authorize_and_load(subject, authorization_module, module, action, context, arity) do
     loader = context.field_meta |> get_field(:loader) |> get_fn_from_ast(1, context.resolution)
+
+    dbg loader
 
     if loader do
       authorize_loaded_resource(
