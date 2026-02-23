@@ -229,8 +229,20 @@ defmodule Permit.Absinthe.Resolvers.LoadAndAuthorize do
     _ -> nil
   end
 
+  # {:&, [line: 87, column: 37],
+  #  [
+  #    {:/, [line: 87, column: 75],
+  #     [
+  #       {{:., [line: 87, column: 53], [Permit.Absinthe, :authorized_dataloader]},
+  #        [no_parens: true, line: 87, column: 54], []},
+  #       3
+  #     ]}
+  #  ]}
+
   defp get_fn_from_ast({:&, _meta, _clauses} = capture_ast, arity, resolution) do
     schema = resolution && resolution.schema
+
+    dbg schema
 
     capture_ast =
       if is_atom(schema) do
